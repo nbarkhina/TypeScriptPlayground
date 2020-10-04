@@ -1,0 +1,33 @@
+import React, { Component } from './types/react';
+
+declare var ReactDOM;
+
+//state class
+class MyReactState {
+    message = '';
+}
+
+//main component
+class MyReactApp extends Component<{}, MyReactState>{
+    constructor(props) {
+        super(props);
+        this.state = new MyReactState();
+    }
+
+    buttonClicked() {
+        this.setState({ message:'Button Clicked' });
+    }
+
+    render() {
+
+        return (
+            <div className="container">
+                <h1>React Example</h1>
+                <button className="btn btn-primary" onClick={this.buttonClicked.bind(this)}>Click Me</button>
+                <div style={{marginTop:'20px'}}>{this.state.message}</div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(React.createElement(MyReactApp), document.getElementById('divOutput'));

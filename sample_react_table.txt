@@ -1,0 +1,65 @@
+import React, { Component } from './types/react';
+
+declare var ReactDOM;
+
+//state class
+class MyReactState {
+    title = 'React Table';
+    numRows = 1;
+}
+
+//main component
+class MyReactApp extends Component<{}, MyReactState>{
+    constructor(props) {
+        super(props);
+        this.state = new MyReactState();
+    }
+
+    buttonClicked() {
+        this.setState({ numRows: this.state.numRows + 1 });
+    }
+
+    render() {
+
+        let rows = [];
+
+        for (let i = 0; i < this.state.numRows; i++)
+            rows.push(<tr key={i}><td>Maddy</td><td>{i}</td></tr>);
+        let myTable = <table className="table" style={{ marginTop: '20px' }}>
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>RowNum</th>
+                </tr>
+                {rows}
+            </tbody>
+        </table>;
+
+        return (
+            <div className="container">
+                <h1>{this.state.title}</h1>
+                <br></br>
+                <MyButton buttonName="Add Row" onButtonClicked={this.buttonClicked.bind(this)}></MyButton>
+                { myTable}
+            </div>
+        );
+    }
+}
+
+//button component
+class MyButton extends Component<{buttonName: string;onButtonClicked: (event: any) => void}, {}> {
+
+    buttonClicked() {
+        this.props.onButtonClicked('');
+    }
+
+    render() {
+        return (
+            <div>
+                <button type="button" onClick={this.buttonClicked.bind(this)} className="btn btn-primary">{this.props.buttonName}</button>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(React.createElement(MyReactApp), document.getElementById('divOutput'));
