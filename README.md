@@ -40,3 +40,6 @@ This app makes use of the following libraries:
 - Font Awesome - great icon pack
 - SplitJS - handles the split view between Editor and Output
 
+# Screenshot
+
+![alt](screenshot.PNG)

@@ -5,7 +5,7 @@
     "strict": false,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "watch": true,
+    "watch": false,
     "sourceMap": true,
     "jsx": "react"
     }
