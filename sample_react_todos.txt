@@ -1,0 +1,77 @@
+import React, { Component } from './types/react';
+
+declare var ReactDOM;
+
+//state class
+class MyReactState {
+    message = '';
+    todos:Todo[] = [{id:1,name:'Neil'},{id:2,name:'Maddy'},{id:3,name:'Kim'},{id:4,name:'Lindsay'}];
+    currentText = '';
+}
+
+class Todo{
+    name:string;
+    id:number;
+}
+
+//main component
+class MyReactApp extends Component<{}, MyReactState>{
+    constructor(props) {
+        super(props);
+        this.state = new MyReactState();
+        window["myReactApp"] = this;
+    }
+
+    btnAdd() {
+        if (this.state.currentText=='')
+            return;
+        let newTodos = this.state.todos;
+        let newID = Math.floor(Math.random()*100000000);
+        newTodos.push({id:newID,name:this.state.currentText})
+        this.setState({
+            todos:newTodos,
+            currentText:''
+        })
+    }
+
+    textChange(event) {
+        this.setState({currentText: event.target.value});
+    }
+
+    btnRemove(id:number){
+        console.log(id);
+        let newTodos = this.state.todos.filter((todo)=>{
+            return todo.id!=id
+        })
+        this.setState({todos:newTodos});
+    }
+
+    keyDownAnswer(event: React.KeyboardEvent<HTMLInputElement>): void {
+        if (event.key == 'Enter') {
+            this.btnAdd();
+        }
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <h1>React Todos</h1>
+                <input className="form-control mb-2" type="text" onChange={this.textChange.bind(this)}
+                    onKeyDown={this.keyDownAnswer.bind(this)}
+                    value={this.state.currentText}></input>
+                <button className="btn btn-primary" onClick={this.btnAdd.bind(this)}>Add</button>
+                <div style={{marginTop:'20px'}}>{this.state.message}</div>
+                {
+                    this.state.todos.map((todo)=>
+                    <div className="alert alert-secondary" role="alert" key={todo.id} style={{marginBottom:'5px'}}>
+                        {todo.name} <button className="btn btn-danger float-right" onClick={()=>this.btnRemove(todo.id)}
+                        style={{position:'relative',bottom:'8px'}}>Remove</button>
+                    </div>
+                    )
+                }
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(React.createElement(MyReactApp), document.getElementById('divOutput'));

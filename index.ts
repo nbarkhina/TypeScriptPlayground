@@ -52,6 +52,7 @@ export class MyApp {
     sampleCode1 = '';
     sampleCode2 = '';
     sampleCode3 = '';
+    sampleCode4 = '';
 
     async setupMonaco() {
 
@@ -66,6 +67,10 @@ export class MyApp {
         //React Table
         var response = await fetch('./sample_react_table.txt');
         this.sampleCode3 = await response.text();
+
+        //React Todos
+        var response = await fetch('./sample_react_todos.txt');
+        this.sampleCode4 = await response.text();
         
 
         //Default
@@ -83,6 +88,8 @@ export class MyApp {
             result = this.sampleCode2;
         if (loadSample == "sample3")
             result = this.sampleCode3;
+        if (loadSample == "sample4")
+            result = this.sampleCode4;
         localStorage.setItem('tsLoadSample', '');
 
         response = await fetch('./node_modules/@types/react/index.d.ts');

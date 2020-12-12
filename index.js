@@ -20,6 +20,7 @@ define(["require", "exports"], function (require, exports) {
             this.sampleCode1 = '';
             this.sampleCode2 = '';
             this.sampleCode3 = '';
+            this.sampleCode4 = '';
             this.areaHeight = window.innerHeight - 280;
             if (this.areaHeight < 400)
                 this.areaHeight = 400;
@@ -61,6 +62,9 @@ define(["require", "exports"], function (require, exports) {
                 //React Table
                 var response = yield fetch('./sample_react_table.txt');
                 this.sampleCode3 = yield response.text();
+                //React Todos
+                var response = yield fetch('./sample_react_todos.txt');
+                this.sampleCode4 = yield response.text();
                 //Default
                 var result = this.sampleCode3;
                 var oldCode = localStorage.getItem('tsPlaygroundCode');
@@ -74,6 +78,8 @@ define(["require", "exports"], function (require, exports) {
                     result = this.sampleCode2;
                 if (loadSample == "sample3")
                     result = this.sampleCode3;
+                if (loadSample == "sample4")
+                    result = this.sampleCode4;
                 localStorage.setItem('tsLoadSample', '');
                 response = yield fetch('./node_modules/@types/react/index.d.ts');
                 this.reactTypings = yield response.text();
